@@ -1,17 +1,15 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
+from django.views.generic import DetailView
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from sc2clan.core.models import Profile
 
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'sc2clan.views.home', name='home'),
-    # url(r'^sc2clan/', include('sc2clan.foo.urls')),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+urlpatterns = patterns(
+    '', # PREFIX
+    url(r'^profile/(?P<pk>\d+)$',
+        DetailView.as_view(
+            model=Profile,
+            context_object_name='profile',
+            template_name='core/profile.html',
+        )),
 )

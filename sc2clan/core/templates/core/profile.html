@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load obfuscate_email %}
+
+{% block content %}
+<h2 class="clan-name"><a href="#">CLAN DJANGO</a></h2>
+
+<div class="player-info">
+  <dt class="player-name">Name:</dt><dd>{{profile.name}}</dd>
+  <dt class="player-name">StarCraft ID:</dt><dd>{{profile.starcraft_id}} + {{profile.starcraft_id_number}}</dd>
+  <dt class="player-name">RealID:</dt><dd>{{profile.real_id|obfuscate_email}}</dd>
+  <dt class="player-name">Races:</dt><dd>
+    {% for race in profile.races.all %}
+    {% if forloop.first %}
+    <ul class="unstyled">{% endif %}<li>{{race.get_name_display}}</li>{% if forloop.last %}</ul>{% endif %}
+    {% endfor %}
+  </dd>
+  <dt class="player-name">Leagues:</dt><dd>
+    {% for league in profile.leagues.all %}
+    {% if forloop.first %}
+    <ul class="unstyled">
+    {% endif %}
+    <li>{{league.get_game_type_display}} - {{league.get_name_display}}</li>
+    {% if forloop.last %}
+    </ul>
+    {% endif %}
+    {% endfor %}
+  </dd>
+  <dt class="player-name">Working on:</dt><dd>
+    {{profile.working_on|linebreaksbr}}
+  </dd>
+</div>
+{% endblock content %}
