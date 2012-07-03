@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from django.views.generic import DetailView
+from django.views.generic import DetailView, FormView
 
 from sc2clan.core.models import Profile
 
@@ -11,5 +11,9 @@ urlpatterns = patterns(
             model=Profile,
             context_object_name='profile',
             template_name='core/profile.html',
+        )),
+    url(r'^accounts/',
+        include(
+            'registration.backends.default.urls',
         )),
 )
