@@ -1,11 +1,11 @@
-from django.conf.urls import patterns, url
-from django.views.generic import DetailView, FormView
+from django.conf.urls import patterns, url, include
+from django.views.generic import DetailView
 
 from sc2clan.core.models import Profile
 
 
 urlpatterns = patterns(
-    '', # PREFIX
+    '',  # PREFIX
     url(r'^profile/(?P<pk>\d+)$',
         DetailView.as_view(
             model=Profile,
