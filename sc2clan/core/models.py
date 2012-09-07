@@ -17,7 +17,6 @@ class Account(models.Model):
                                 null=True)
     primary = models.BooleanField(default=True)
 
-
     @property
     def get_starcraft_number_display(self):
         if self.starcraft_number:
