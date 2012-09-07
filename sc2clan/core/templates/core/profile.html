@@ -6,19 +6,27 @@
 
 <div class="player-info">
   <dt class="player-name">Name:</dt><dd>{{profile.user.username}}</dd>
-  <dt class="player-starcraft-username">StarCraft Username:</dt><dd>{{profile.starcraft_username}}{{profile.starcraft_number_display}}</dd>
-  <dt class="player-real-id">RealID:</dt><dd>{{profile.real_id|obfuscate_email}}</dd>
-  <dt class="player-races">Races:</dt><dd>
+  {% for account in user.accounts.all %}
+  {% if forloop.first %}
+  <div class="player-accounts">
+  {% endif %}
+    <dt class="player-starcraft-username">StarCraft Username:</dt><dd>{{account.starcraft_username}}{{account.starcraft_number_display}}</dd>
+    <dt class="player-real-id">RealID:</dt><dd>{{account.real_id|obfuscate_email}}</dd>
+  {% if forloop.last %}
+  </div>
+  {% endif %}
+  {% endfor %}
     {% for race in profile.races.all %}
     {% if forloop.first %}
+  <dt class="player-races">Races:</dt><dd>
     <ul class="unstyled">
     {% endif %}
       <li>{{race.get_name_display}}: {{race.get_game_type_display}} - {{race.get_league_display}}</li>
     {% if forloop.last %}
     </ul>
+  </dd>
     {% endif %}
     {% endfor %}
-  </dd>
   <dt class="player-working-on">Working on:</dt><dd>
     {{profile.working_on|linebreaksbr}}
   </dd>
